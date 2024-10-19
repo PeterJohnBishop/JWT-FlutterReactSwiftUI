@@ -16,4 +16,41 @@ router.route('/create').post( async (req, res) => {
       }
   });
 
+  router.route("/auth").post(async (req, res) => {
+    const user = req.body;
+    await User.findOne({ username: user.username }).then((u) => {
+      if (!u) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      bcrypt.compare(user.password, u.password).then((match) => {
+        if (match) {
+          const payload = {
+            id: u._id,
+            username: u.username,
+          };
+          jwt.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: 86400 },
+            (error, token) => {
+              if (error) {
+                return res.status(401).json({ message: error });
+              } else {
+                return res.status(200).json({
+                  message: "Login Success!",
+                  user: u,
+                  jwt: token,
+                });
+              }
+            }
+          );
+        } else {
+          return res.status(409).json({
+            message: "Username or password is incorrect.",
+          });
+        }
+      });
+    });
+  });
+
 module.exports = router;

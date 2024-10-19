@@ -20,26 +20,6 @@ const userSchema = new Schema(
       required: [true, "Your password is required"],
       minlength: 5, // Minimum password length
     },
-    avatar: {
-      type: String,
-      required: false
-    },
-    uploads: {
-      type: [String], // Array of user IDs (or names/emails)
-      required: false
-    },
-    longitude: {
-      type: Number,
-      required: false
-    }, 
-    latitude: {
-      type: Number,
-      required: false
-    },
-    friends: {
-        type: [String],
-        required: false
-    }
   },
   { timestamps: true } // Adds createdAt and updatedAt timestamps automatically
 );

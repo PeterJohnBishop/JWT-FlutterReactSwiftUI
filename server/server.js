@@ -9,12 +9,27 @@ const io = new Server(server);
 const dotenv = require("dotenv");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 
 dotenv.config();
 const port = process.env.SERVER_PORT;
 // const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use(bodyParser.json());
+app.use(cors());
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow any localhost origin (for development only)
+    if (origin && /^http:\/\/localhost(:\d+)?$/.test(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');

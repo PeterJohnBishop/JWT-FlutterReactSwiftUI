@@ -7,28 +7,33 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 const dotenv = require("dotenv");
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const cors = require('cors');
 
 dotenv.config();
 const port = process.env.SERVER_PORT;
-// const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use(bodyParser.json());
+
 app.use(cors());
+//dev only to allow dynamic ports for flutter app
+const allowedOrigins = [
+  /^http:\/\/localhost(:\d+)?$/,     // Allow localhost with optional port
+  'http://192.168.0.165',            // Add specific IP address
+  // Add more IPs or domains as needed
+];
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow any localhost origin (for development only)
-    if (origin && /^http:\/\/localhost(:\d+)?$/.test(origin)) {
+    if (!origin) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      callback(null, true);
+    } else if (allowedOrigins.some(o => typeof o === 'string' ? o === origin : o.test(origin))) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
 };
-
 app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {

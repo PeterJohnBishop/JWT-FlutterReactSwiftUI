@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -89,26 +90,32 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
       Future<void> authenticateUser(String username, String password) async {
-    final response = await http.post(
-      Uri.parse('http://127.0.0.1:8080/users/auth'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'username': username,
-        'password': password
-      }),
-    );
+        //https://pub.dev/packages/shared_preferences
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    if (response.statusCode == 200) {
-      // If the server returns a CREATED response
-      var data = jsonDecode(response.body);
-      print('Data posted: $data');
-      showSuccessDialog("Login Successful!");
-    } else {
-      // If the server returns an error response
-      throw Exception('Failed to post data');
-    }
+        final response = await http.post(
+          Uri.parse('http://127.0.0.1:8080/users/auth'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'username': username,
+            'password': password
+          }),
+        );
+
+              // Decode the response body
+        var data = jsonDecode(response.body);
+
+        // Make sure you access 'jwt' properly from the decoded data
+        if (data.containsKey('jwt')) {
+          await prefs.setString('jwt', data['jwt'].toString());
+          final String? token = prefs.getString('jwt');
+          print('Data posted: $token');
+          showSuccessDialog("Login Successful!");
+        } else {
+          throw Exception('JWT token not found in response');
+        }
   }
 
     void login() {
@@ -125,14 +132,16 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Login Page'),
-      // ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Padding(
+              padding: EdgeInsets.all(8),
+              child: 
+            Text("Login", style: TextStyle(fontStyle: FontStyle.italic),),
+            ),
             // Username Field
             TextField(
               controller: _usernameController,
@@ -157,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // Login Button
             ElevatedButton(
               onPressed: login,
-              child: Text('Login'),
+              child: Text('Submit'),
             ),
           ],
         ),

@@ -84,7 +84,7 @@ import CryptoKit
                     let jwtToken = loginResponse.jwt
                     
                     // Optionally, store the JWT in UserDefaults or Keychain for later use
-                    UserDefaults.standard.set(jwtToken, forKey: "userToken")
+                    UserDefaults.standard.set(jwtToken, forKey: "jwt")
                     
                     print("Login successful! JWT Token: \(jwtToken)")
                     return true
@@ -112,7 +112,7 @@ import CryptoKit
         guard let url = URL(string: "\(baseURL)/\(userId)") else { return false }
         
         // Retrieve the JWT token from UserDefaults
-        guard let token = UserDefaults.standard.string(forKey: "userToken") else {
+        guard let token = UserDefaults.standard.string(forKey: "jwt") else {
             self.error = "Error: No token found."
             return false
         }
@@ -144,7 +144,7 @@ import CryptoKit
         }
         
         // Retrieve the JWT token from UserDefaults
-        guard let token = UserDefaults.standard.string(forKey: "userToken") else {
+        guard let token = UserDefaults.standard.string(forKey: "jwt") else {
             self.error = "Error: No token found."
             return false
         }
@@ -185,7 +185,7 @@ import CryptoKit
         guard let url = URL(string: "\(baseURL)/\(userUpdate._id ?? "NoUser")") else { return false }
         
         // Retrieve the JWT token from UserDefaults
-        guard let token = UserDefaults.standard.string(forKey: "userToken") else {
+        guard let token = UserDefaults.standard.string(forKey: "jwt") else {
             self.error = "Error: No token found."
             return false
         }
@@ -224,7 +224,7 @@ import CryptoKit
         guard let url = URL(string: "\(baseURL)/\(userId)") else { return false }
         
         // Retrieve the JWT token from UserDefaults
-        guard let token = UserDefaults.standard.string(forKey: "userToken") else {
+        guard let token = UserDefaults.standard.string(forKey: "jwt") else {
             self.error = "Error: No token found."
             return false
         }

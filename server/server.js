@@ -56,8 +56,16 @@ const configureSocketIO = (io) => {
   io.on('connection', (socket) => {
     console.log('A user connected on port:', io.httpServer.address().port);
 
-    socket.on('Connected', (data) => {
-      console.log(`Data received on port ${io.httpServer.address().port}:`, data);
+    socket.on('fromSwiftUI', (data) => {
+      console.log(`Message received on port ${io.httpServer.address().port}:`, data);
+    });
+
+    socket.on('fromFlutter', (data) => {
+      console.log(`Message received on port ${io.httpServer.address().port}:`, data);
+    });
+
+    socket.on('fromReact', (data) => {
+      console.log(`Message received on port ${io.httpServer.address().port}:`, data);
     });
 
     socket.on('disconnect', () => {

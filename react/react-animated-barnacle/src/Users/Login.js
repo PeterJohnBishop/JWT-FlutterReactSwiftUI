@@ -10,7 +10,7 @@ const LoginView = () => {
   const userService = new UserService();
 
     useEffect(() => {  
-      socket.emit("Connected", {
+      socket.emit("fromReact", {
         "message": "React connected!"
       })
   },[]);

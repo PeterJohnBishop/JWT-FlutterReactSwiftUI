@@ -15,7 +15,7 @@ class _LoginViewState extends State<LoginView> {
 
       @override
     void initState() {
-      SocketService.socket.emit("Connected", {"message":"Flutter connected!"});
+      SocketService.socket.emit("fromFlutter", {"message":"Flutter connected!"});
       super.initState();
     }
 

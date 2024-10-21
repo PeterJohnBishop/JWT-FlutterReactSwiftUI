@@ -78,11 +78,6 @@ const authenticateToken = require("../utils/jwtVerify");
                 username: req.body.username,
                 email: req.body.email,
                 password: req.body.password,
-                avatar: req.body.avatar,
-                uploads: req.body.uploads,
-                longitude: req.body.longitude,
-                latitude: req.body.latitude,
-                friends: req.body.friends
               },
             },
             {
@@ -95,6 +90,18 @@ const authenticateToken = require("../utils/jwtVerify");
         res.status(400).json("Error: " + err);
     }
     });
+
+    router.route("/:id").delete(authenticateToken, (req, res) => {
+        const { id } = req.params;
+        User.findByIdAndDelete(id)
+          .then(() => {
+            res.status(200).json("User deleted!");
+            req.io.emit('userDeleted', { id });
+          })
+          .catch((err) => {
+            res.status(400).json("Error: " + err);
+          });
+      });
   
 
 module.exports = router;

@@ -37,7 +37,7 @@ import CryptoKit
             do {
                 let (_, response) = try await URLSession.shared.data(for: request)
 
-                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 201 {
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
                     print("New user successfully added to MongoDB.")
                     return true
                 } else {

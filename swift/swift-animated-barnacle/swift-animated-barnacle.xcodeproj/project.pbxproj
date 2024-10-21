@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B1BFB3E82CC6279A00457D74 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = B1BFB3E72CC6279A00457D74 /* SocketIO */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		B18ACB422CC2F85E00D68D1A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1BFB3E82CC6279A00457D74 /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = "swift-animated-barnacle";
 			packageProductDependencies = (
+				B1BFB3E72CC6279A00457D74 /* SocketIO */,
 			);
 			productName = "swift-animated-barnacle";
 			productReference = B18ACB2F2CC2F85C00D68D1A /* swift-animated-barnacle.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = B18ACB262CC2F85C00D68D1A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B1BFB3E62CC6279A00457D74 /* XCRemoteSwiftPackageReference "socket" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B18ACB302CC2F85C00D68D1A /* Products */;
 			projectDirPath = "";
@@ -558,6 +567,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B1BFB3E62CC6279A00457D74 /* XCRemoteSwiftPackageReference "socket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B1BFB3E72CC6279A00457D74 /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1BFB3E62CC6279A00457D74 /* XCRemoteSwiftPackageReference "socket" */;
+			productName = SocketIO;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B18ACB272CC2F85C00D68D1A /* Project object */;
 }

@@ -13,7 +13,7 @@ import CryptoKit
 @Observable class UserService {
     var user: UserData = UserData()
     var users: [UserData] = []
-    var baseURL: String = "http://127.0.0.1:8080/users/"
+    var baseURL: String = "http://127.0.0.1:4000/users/"
     var error: String = ""
     
     func createNewUser() async -> Bool {

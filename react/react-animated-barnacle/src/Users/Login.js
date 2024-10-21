@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UserService from './UserService';  // Import your UserService
+import socket from '../Utils/SocketIO';
 
 const LoginView = () => {
   const [username, setUsername] = useState('');
@@ -7,6 +8,12 @@ const LoginView = () => {
   const [error, setError] = useState(null);  
 
   const userService = new UserService();
+
+    useEffect(() => {  
+      socket.emit("Connected", {
+        "message": "React connected!"
+      })
+  },[]);
 
   const handleLogin = async (e) => {
     e.preventDefault();  
@@ -77,8 +84,8 @@ const LoginView = () => {
           style={{
             width: '100%',
             padding: '10px',
-            backgroundColor: '#007BFF',
-            color: 'white',
+            backgroundColor: 'white',
+            color: 'black',
             border: 'none',
             borderRadius: '4px',
             cursor: 'pointer',

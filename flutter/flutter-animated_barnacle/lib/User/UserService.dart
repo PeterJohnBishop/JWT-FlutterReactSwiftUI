@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserService {
   late User user;
   late List<User> users;
-  final String baseUrl = "http://127.0.0.1:8080/users";
+  final String baseUrl = "http://127.0.0.1:4001/users";
 
   void showErrorDialog(String message, context) {
       showDialog(

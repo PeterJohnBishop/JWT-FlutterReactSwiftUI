@@ -111,8 +111,8 @@ const RegistrationView = () => {
           style={{
             width: '100%',
             padding: '10px',
-            backgroundColor: '#007BFF',
-            color: 'white',
+            backgroundColor: 'white',
+            color: 'black',
             border: 'none',
             borderRadius: '4px',
             cursor: 'pointer',

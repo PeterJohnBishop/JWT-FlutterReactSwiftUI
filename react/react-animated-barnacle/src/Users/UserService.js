@@ -2,7 +2,7 @@ import User from './UserModel';
 
 class UserService {
     constructor() {
-      this.baseUrl = "http://127.0.0.1:8080/users";
+      this.baseUrl = "http://127.0.0.1:4002/users";
       this.user = null; 
       this.users = [];  
     }

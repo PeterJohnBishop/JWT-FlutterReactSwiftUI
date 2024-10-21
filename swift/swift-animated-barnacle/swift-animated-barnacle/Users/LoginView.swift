@@ -45,8 +45,7 @@ struct LoginView: View {
                                                 .shadow(color: .gray.opacity(0.4), radius: 4, x: 2, y: 2)
                                         )
         }.onAppear{
-            SocketService.shared.socket.connect()
-            SocketService.shared.socket.emit("Connected", ["message": "SwiftUI connected!"])
+            
         }
     }
 }

@@ -13,7 +13,13 @@ struct ContentView: View {
     var body: some View {
         HStack{
             LoginView()
-        }
+        }.onAppear{
+            SocketService.shared.socket.connect()
+        }.onChange(of: SocketService.shared.connected, {
+            if SocketService.shared.connected {
+                SocketService.shared.socket.emit("Connected", ["message":"SwiftUI connected!"])
+            }
+        })
     }
 }
 

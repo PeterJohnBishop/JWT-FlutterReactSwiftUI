@@ -1,3 +1,4 @@
+import 'package:animated_barnacle/Utils/SocketIO.dart';
 import 'package:flutter/material.dart';
 import 'UserService.dart';
 
@@ -11,6 +12,12 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
 
   UserService userService = UserService();
+
+      @override
+    void initState() {
+      SocketService.socket.emit("Connected", {"message":"Flutter connected!"});
+      super.initState();
+    }
 
   @override
   Widget build(BuildContext context) {

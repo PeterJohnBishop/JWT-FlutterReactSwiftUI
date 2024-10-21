@@ -28,7 +28,6 @@ class _RegisterViewState extends State<RegisterView> {
       if (username.isEmpty || email.isEmpty || password.isEmpty) {
         userService.showErrorDialog("Please complete the form.", context);
       } else {
-        print("Creating user acount");
         bool created = await userService.createUser(username, email, password);
         if(created) {
           bool loggedIn = await userService.authenticateUser(username, password);

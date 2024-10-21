@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State var userVM: UserVM = UserVM()
+    @State var userService: UserService = UserService()
     @State var success: Bool = false
     
     var body: some View {
         VStack{
-            success ? Text("Successfully Logged In") : Text("Login")
+            Text("Login")
             
-            TextField("Username", text: $userVM.user.username)
+            TextField("Username", text: $userService.user.username)
                                     .tint(.black)
                                     .autocapitalization(.none)
                                     .disableAutocorrection(true)
                                     .padding()
                                     
-            SecureField("Password", text: $userVM.user.password)
+            SecureField("Password", text: $userService.user.password)
                                     .tint(.black)
                                     .autocapitalization(.none)
                                     .disableAutocorrection(true)
@@ -29,7 +29,12 @@ struct LoginView: View {
             
             Button("Submit", action: {
                                         Task{
-                                            success = await userVM.authenticateUser()
+                                            success = await userService.authenticateUser()
+                                            if (success) {
+                                                print("User authenticated!")
+                                            } else {
+                                                print("Error logging in!")
+                                            }
                                         }
             }).fontWeight(.ultraLight)
                                        .foregroundColor(.black)

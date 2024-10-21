@@ -8,27 +8,27 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @State var userVM: UserVM = UserVM()
+    @State var userService: UserService = UserService()
     @State var confirmPassword: String = ""
     @State var success: Bool = false
     
     var body: some View {
         VStack{
-            success ? Text("Successfully Registered. Logging In.") : Text("Register")
+            Text("Register")
             
-            TextField("Username", text: $userVM.user.username)
+            TextField("Username", text: $userService.user.username)
                                     .tint(.black)
                                     .autocapitalization(.none)
                                     .disableAutocorrection(true)
                                     .padding()
             
-            TextField("Email", text: $userVM.user.email)
+            TextField("Email", text: $userService.user.email)
                                     .tint(.black)
                                     .autocapitalization(.none)
                                     .disableAutocorrection(true)
                                     .padding()
                                     
-            SecureField("Password", text: $userVM.user.password)
+            SecureField("Password", text: $userService.user.password)
                                     .tint(.black)
                                     .autocapitalization(.none)
                                     .disableAutocorrection(true)
@@ -42,9 +42,14 @@ struct RegisterView: View {
             
             Button("Submit", action: {
                                         Task{
-                                            let registered = await userVM.createNewUser()
+                                            let registered = await userService.createNewUser()
                                             if (registered) {
-                                                success = await userVM.authenticateUser()
+                                                success = await userService.authenticateUser()
+                                                if (success) {
+                                                    print("User created and authenticated!")
+                                                } else {
+                                                    print("Error creating new user!")
+                                                }
                                             }
                                         }
             }).fontWeight(.ultraLight)

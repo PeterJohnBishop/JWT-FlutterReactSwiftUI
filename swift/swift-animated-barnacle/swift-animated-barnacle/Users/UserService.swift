@@ -10,7 +10,7 @@ import Foundation
 import Observation
 import CryptoKit
 
-@Observable class UserVM {
+@Observable class UserService {
     var user: UserData = UserData()
     var users: [UserData] = []
     var baseURL: String = "http://127.0.0.1:8080/users/"

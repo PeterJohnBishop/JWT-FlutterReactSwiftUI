@@ -1,5 +1,5 @@
-import 'package:animated_barnacle/User/login.dart';
-import 'package:animated_barnacle/User/register.dart';
+import 'package:animated_barnacle/User/Login.dart';
+import 'package:animated_barnacle/User/Register.dart';
 import 'package:flutter/material.dart';
 
 void main() {

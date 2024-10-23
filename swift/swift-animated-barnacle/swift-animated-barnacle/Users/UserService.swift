@@ -80,11 +80,12 @@ import CryptoKit
                     let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: data)
                     
                     // Handle successful login, e.g., set user and JWT token
-                    self.user = loginResponse.user  // Assuming `user` has an `id` property
+                    self.user = loginResponse.user
                     let jwtToken = loginResponse.jwt
                     
                     // Optionally, store the JWT in UserDefaults or Keychain for later use
                     UserDefaults.standard.set(jwtToken, forKey: "jwt")
+                    UserDefaults.standard.set(user._id, forKey: "user_id")
                     
                     print("Login successful! JWT Token: \(jwtToken)")
                     return true

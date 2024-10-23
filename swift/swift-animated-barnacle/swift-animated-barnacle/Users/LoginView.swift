@@ -12,40 +12,45 @@ struct LoginView: View {
     @State var success: Bool = false
     
     var body: some View {
-        VStack{
-            Text("Login")
-            
-            TextField("Username", text: $userService.user.username)
-                                    .tint(.black)
-                                    .autocapitalization(.none)
-                                    .disableAutocorrection(true)
-                                    .padding()
-                                    
-            SecureField("Password", text: $userService.user.password)
-                                    .tint(.black)
-                                    .autocapitalization(.none)
-                                    .disableAutocorrection(true)
-                                    .padding()
-            
-            Button("Submit", action: {
-                                        Task{
-                                            success = await userService.authenticateUser()
-                                            if (success) {
-                                                print("User authenticated!")
-                                            } else {
-                                                print("Error logging in!")
-                                            }
-                                        }
-            }).fontWeight(.ultraLight)
-                                       .foregroundColor(.black)
-                                       .padding()
-                                       .background(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .fill(Color.white)
-                                                .shadow(color: .gray.opacity(0.4), radius: 4, x: 2, y: 2)
-                                        )
-        }.onAppear{
-            
+        NavigationStack{
+            VStack{
+                Text("Login")
+                
+                TextField("Username", text: $userService.user.username)
+                    .tint(.black)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .padding()
+                
+                SecureField("Password", text: $userService.user.password)
+                    .tint(.black)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .padding()
+                
+                Button("Submit", action: {
+                    Task{
+                        success = await userService.authenticateUser()
+                        if (success) {
+                            print("User authenticated!")
+                        } else {
+                            print("Error logging in!")
+                        }
+                    }
+                }).navigationDestination(isPresented: $success, destination: {
+                    ListUsersView()
+                })
+                .fontWeight(.ultraLight)
+                .foregroundColor(.black)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.white)
+                        .shadow(color: .gray.opacity(0.4), radius: 4, x: 2, y: 2)
+                )
+            }.onAppear{
+                
+            }
         }
     }
 }
